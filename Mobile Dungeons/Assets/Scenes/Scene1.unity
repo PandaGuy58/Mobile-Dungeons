@@ -391,6 +391,8 @@ Transform:
   - {fileID: 1513306117}
   - {fileID: 1904268906}
   - {fileID: 837024771}
+  - {fileID: 1583637637}
+  - {fileID: 1519655008}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -410,12 +412,16 @@ MonoBehaviour:
   walls: {fileID: 940488923}
   columns: {fileID: 1904268906}
   seeThroughWalls: {fileID: 837024771}
+  other: {fileID: 1519655008}
   floorPrefab: {fileID: 8572890000184151390, guid: ffa9f8f9ddc2be34bb7ce4f117269d91, type: 3}
   wallPrefab: {fileID: 4774362971153257397, guid: 9ef7cd9265ed18443bcd1686033442ed, type: 3}
   columnPrefab: {fileID: 7395780494728883409, guid: 3cfc50a66947e764c9007f3fa0405f4f, type: 3}
   seeThroughWallPrefab: {fileID: 3863704508654136031, guid: 481a51a96a463e942983c01cb23ceb74, type: 3}
-  xSize: 2
-  zSize: 7
+  gatePrefab: {fileID: 4703811673360363281, guid: 296f7db74a9e59d44ba3765db0b5fccb, type: 3}
+  xSize: 3
+  zSize: 3
+  xCutoutSize: 2
+  zCutoutSize: 2
 --- !u!1 &1513306116
 GameObject:
   m_ObjectHideFlags: 0
@@ -445,6 +451,66 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1417015354}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1519655007
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1519655008}
+  m_Layer: 0
+  m_Name: Other
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1519655008
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1519655007}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1417015354}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1583637636
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1583637637}
+  m_Layer: 0
+  m_Name: Doors
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1583637637
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1583637636}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1417015354}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1904268905
 GameObject:
