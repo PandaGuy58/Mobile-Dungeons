@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2758065504072726368}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Column One
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,6 +42,10 @@ PrefabInstance:
     - target: {fileID: 1186615372898254, guid: ba572b8258606454086e3cca51b5f78b, type: 3}
       propertyPath: m_Name
       value: SM_Env_Dwarf_Stairs_Pillar_03
+      objectReference: {fileID: 0}
+    - target: {fileID: 1186615372898254, guid: ba572b8258606454086e3cca51b5f78b, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4302659951948466, guid: ba572b8258606454086e3cca51b5f78b, type: 3}
       propertyPath: m_RootOrder
@@ -104,6 +108,10 @@ PrefabInstance:
     - target: {fileID: 1186615372898254, guid: ba572b8258606454086e3cca51b5f78b, type: 3}
       propertyPath: m_Name
       value: SM_Env_Dwarf_Stairs_Pillar_03 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1186615372898254, guid: ba572b8258606454086e3cca51b5f78b, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4302659951948466, guid: ba572b8258606454086e3cca51b5f78b, type: 3}
       propertyPath: m_RootOrder

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class GenerationOne : MonoBehaviour
@@ -16,54 +17,86 @@ public class GenerationOne : MonoBehaviour
     public GameObject columnPrefab;
     public GameObject seeThroughWallPrefab;
     public GameObject gatePrefab;
+    public GameObject lightBrazier;
+
+    public List<GameObject> interactableLocationsPrefabs;
 
 
-    public int xSize = 6;
-    public int zSize = 6;
+    int xSize = 6;
+    int zSize = 6;
 
-    public int xCutoutSize = 2;
-    public int zCutoutSize = 2;
+    int xCutoutSize = 2;
+    int zCutoutSize = 2;
 
     int prefabSize = 5;
     float columnStandOut = 0.3f;
 
-    bool[,] floorArrayCutout;
+    bool[,] floorArrayOccupy;
 
- //   public GameObject emptyPrefab;
-    // Start is called before the first frame update
+    public Light mainLight;
+    public Light mainLightTwo;
+
+
+    int x;
+    int z;
+
+    Vector2 one = Vector2.zero;
+    Vector2 two = Vector2.zero;
+    Vector2 three = Vector2.zero;
+    Vector2 four = Vector2.zero;
+
+    Vector3 calculate;
+    GameObject newObject;
+    GameObject targetPrefab;
+    bool complete = false;
+    int targetPrefabIndex;
+
     private void Awake()
     {
+        xSize = Random.Range(7, 9);
+        zSize = Random.Range(7, 9);
+
+        xCutoutSize = Random.Range(2, 4);
+        zCutoutSize = Random.Range(2,4);
+
         Floors();
         SeeThroughWalls();
         Walls();
-    }
+        ContentsOne();
+        ContentsTwo();
+        ContentsThree();
 
-    // Update is called once per frame
+        mainLight.gameObject.SetActive(false);
+       // mainLightTwo.gameObject.SetActive(false);
+
+        DebugArray();
+    }
 
     void Floors()
     {
         Vector3 targetPos;
         GameObject newObject;
 
-        floorArrayCutout = new bool[xSize, zSize];
+        floorArrayOccupy = new bool[xSize, zSize];
 
         for (int x = xSize - xCutoutSize; x < xSize; x++)
         {
             for (int z = zSize - zCutoutSize; z < zSize; z++)
             {
-                floorArrayCutout[x, z] = true;
+                floorArrayOccupy[x, z] = true;
             }
         }
 
-        for (int x = 0; x < floorArrayCutout.GetLength(0); x++)
+        for (int x = 0; x < floorArrayOccupy.GetLength(0); x++)
         {
-            for (int z = 0; z < floorArrayCutout.GetLength(1); z++)
+            for (int z = 0; z < floorArrayOccupy.GetLength(1); z++)
             {
-                if (!floorArrayCutout[x, z])
+                if (!floorArrayOccupy[x, z])
                 {
                     targetPos = new Vector3(x * prefabSize, 0, z * prefabSize);
                     newObject = Instantiate(floorPrefab, targetPos, Quaternion.identity);
                     newObject.transform.parent = floors;
+                    newObject.transform.name = string.Format("{0},{1}", x,z);
                 }
             }
         }
@@ -152,7 +185,7 @@ public class GenerationOne : MonoBehaviour
         Vector3 finalPos = new Vector3(-5, 0, zSize * prefabSize);
         GameObject newObject;
 
-        int x = floorArrayCutout.GetLength(0) -1;
+        int x = floorArrayOccupy.GetLength(0) -1;
         int z = 0;
 
         // wall z
@@ -171,7 +204,7 @@ public class GenerationOne : MonoBehaviour
 
             z += 1;
 
-            if (floorArrayCutout[x, z])
+            if (floorArrayOccupy[x, z])
             {
                 complete = true;
             }
@@ -190,7 +223,7 @@ public class GenerationOne : MonoBehaviour
             newObject.transform.parent = seeThroughWalls;
 
             x -= 1;
-            if (!floorArrayCutout[x, z])
+            if (!floorArrayOccupy[x, z])
             {
                 complete = true;
             }
@@ -237,7 +270,215 @@ public class GenerationOne : MonoBehaviour
             }
         }
     }
+
+    void ContentsOne()
+    {
+        x = Random.Range(1, xSize - xCutoutSize -1);
+        calculate = new Vector3(x * prefabSize - 2.5f, 0, (zSize-1) * prefabSize + 2.5f);
+        newObject = Instantiate(lightBrazier, calculate, Quaternion.identity);
+        newObject.transform.parent = other;
+        floorArrayOccupy[x,zSize-1] = true;
+        newObject.transform.localEulerAngles = new Vector3(0, Random.Range(0, 59), 0);
+
+        /*
+        while (!complete)
+        {
+            newX = Random.Range(1, xSize - xCutoutSize - 1);
+            newZ = Random.Range(1, zSize - zCutoutSize - 1);
+            if(!(newX == x && newZ == z))
+            {
+                complete = true;
+            }
+        }
+  
+
+        targetPrefab = interactableLocationsPrefabs[Random.Range(0, interactableLocationsPrefabs.Count)];
+        calculate = new Vector3(newX * prefabSize - 2.5f, 0, newZ * prefabSize + 2.5f);
+
+        newObject = Instantiate(targetPrefab, calculate, Quaternion.identity);
+        newObject.transform.localEulerAngles = new Vector3(0, Random.Range(0, 59), 0);
+        floorArrayOccupy[newX, newZ] = true;
+              */
+
+
+        // ---------
+
+
+
+        // ---------    third section
+
+
+
+    }
+
+    void ContentsTwo()
+    {
+        z = Random.Range(1, zSize - zCutoutSize);
+        calculate = new Vector3((xSize - 1) * prefabSize - 2.5f, 0, z * prefabSize + 2.5f);
+        newObject = Instantiate(lightBrazier, calculate, Quaternion.identity);
+        newObject.transform.parent = other;
+        floorArrayOccupy[xSize - 1, z] = true;
+        newObject.transform.localEulerAngles = new Vector3(0, Random.Range(0, 59), 0);
+        one = new Vector2(xSize - 1, z);
+
+               
+        complete = false;
+        while (!complete)
+        {
+            z = Random.Range(1, zSize - zCutoutSize);
+            x = Random.Range(xSize - xCutoutSize, xSize);
+            two = new Vector2(x, z);
+
+            if (one != two)
+            {
+                complete = true;
+            }
+        }
+
+        calculate = new Vector3(x * prefabSize - 2.5f, 0, z * prefabSize + 2.5f);
+
+        List<GameObject> availablePrefabs = new List<GameObject>(interactableLocationsPrefabs);
+        targetPrefabIndex = Random.Range(0, availablePrefabs.Count);
+        targetPrefab = availablePrefabs[targetPrefabIndex];
+        availablePrefabs.RemoveAt(targetPrefabIndex);
+
+        newObject = Instantiate(targetPrefab, calculate, Quaternion.identity);
+        newObject.transform.localEulerAngles = new Vector3(0, Random.Range(0, 59), 0);
+        floorArrayOccupy[x, z] = true;
+        newObject.transform.parent = other;
+
+
+        complete = false;
+        while (!complete)
+        {
+            z = Random.Range(1, zSize - zCutoutSize);
+            x = Random.Range(xSize - xCutoutSize, xSize);
+            three = new Vector2(x, z);
+
+            if (one != two && one != three)
+            {
+                complete = true;
+            }
+        }
+
+        calculate = new Vector3(x * prefabSize - 2.5f, 0, z * prefabSize + 2.5f);
+
+        targetPrefabIndex = Random.Range(0, availablePrefabs.Count);
+        targetPrefab = availablePrefabs[targetPrefabIndex];
+      //  availablePrefabs.RemoveAt(targetPrefabIndex);
+
+        newObject = Instantiate(targetPrefab, calculate, Quaternion.identity);
+        newObject.transform.localEulerAngles = new Vector3(0, Random.Range(0, 59), 0);
+        floorArrayOccupy[x, z] = true;
+        newObject.transform.parent = other;
+     
+    }
+
+    void ContentsThree()
+    {
+        x = Random.Range(1, xSize - xCutoutSize - 1);
+        z = Random.Range(1, zSize - zCutoutSize - 1);
+        calculate = new Vector3(x * prefabSize - 2.5f, 0, z * prefabSize + 2.5f);
+        newObject = Instantiate(lightBrazier, calculate, Quaternion.identity);
+        floorArrayOccupy[x, z] = true;
+        newObject.transform.localEulerAngles = new Vector3(0, Random.Range(0, 59), 0);
+        newObject.transform.parent = other;
+        one = new Vector2(x, z);
+
+        complete = false;
+        while (!complete)
+        {
+            x = Random.Range(1, xSize - xCutoutSize - 1);
+            z = Random.Range(1, zSize - zCutoutSize - 1);
+            two = new Vector2(x, z);
+
+            if (one != two)
+            {
+                complete = true;
+            }
+        }
+
+        calculate = new Vector3(x * prefabSize - 2.5f, 0, z * prefabSize + 2.5f);
+
+        List<GameObject> availablePrefabs = new List<GameObject>(interactableLocationsPrefabs);
+        targetPrefabIndex = Random.Range(0, availablePrefabs.Count);
+        targetPrefab = availablePrefabs[targetPrefabIndex];
+        availablePrefabs.RemoveAt(targetPrefabIndex);
+
+        newObject = Instantiate(targetPrefab, calculate, Quaternion.identity);
+        newObject.transform.localEulerAngles = new Vector3(0, Random.Range(0, 59), 0);
+        floorArrayOccupy[x, z] = true;
+        newObject.transform.parent = other;
+
+        complete = false;
+        while (!complete)
+        {
+            x = Random.Range(1, xSize - xCutoutSize - 1);
+            z = Random.Range(1, zSize - zCutoutSize - 1);
+
+            three = new Vector2(x, z);
+
+            if (three != one && three != two)
+            {
+                complete = true;
+            }
+        }
+
+        calculate = new Vector3(x * prefabSize - 2.5f, 0, z * prefabSize + 2.5f);
+
+        targetPrefabIndex = Random.Range(0, availablePrefabs.Count);
+        targetPrefab = availablePrefabs[targetPrefabIndex];
+        availablePrefabs.RemoveAt(targetPrefabIndex);
+
+        newObject = Instantiate(targetPrefab, calculate, Quaternion.identity);
+        newObject.transform.localEulerAngles = new Vector3(0, Random.Range(0, 59), 0);
+        floorArrayOccupy[x,z] = true;
+        newObject.transform.parent = other;
+
+        complete = false;
+        while (!complete)
+        {
+            x = Random.Range(1, xSize - xCutoutSize - 1);
+            z = Random.Range(1, zSize - zCutoutSize - 1);
+
+            four = new Vector2(x, z);
+
+            if (four != one && four != two && four != three)
+            {
+                complete = true;
+            }
+        }
+
+        calculate = new Vector3(x * prefabSize - 2.5f, 0, z * prefabSize + 2.5f);
+
+        targetPrefabIndex = Random.Range(0, availablePrefabs.Count);
+        targetPrefab = availablePrefabs[targetPrefabIndex];
+
+        newObject = Instantiate(targetPrefab, calculate, Quaternion.identity);
+        newObject.transform.localEulerAngles = new Vector3(0, Random.Range(0, 59), 0);
+        floorArrayOccupy[x, z] = true;
+        newObject.transform.parent = other;
+
+
+    }
+    void DebugArray()
+    {
+        for (int j = 0; j < floorArrayOccupy.GetLength(1); j++)
+        {
+            for (int i = 0; i < floorArrayOccupy.GetLength(0); i++)
+            {
+                var msg = "[" + i.ToString() + ", " + j.ToString() + "] = " + floorArrayOccupy[i, j].ToString();
+              //  Debug.Log(msg);
+            }
+        }
+    }
 }
+
+
+
+
+
+
 
 
 
