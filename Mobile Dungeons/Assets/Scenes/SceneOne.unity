@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4432254, g: 0.49246395, b: 0.5721349, a: 1}
+  m_IndirectSpecularColor: {r: 0.4375563, g: 0.48539984, b: 0.5656753, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -209,13 +209,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 226242261}
-  m_LocalRotation: {x: 0.4953069, y: 0, z: 0, w: 0.868718}
+  m_LocalRotation: {x: 0.63997567, y: 0, z: 0, w: 0.76839525}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 59.38, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 79.58, y: 0, z: 0}
 --- !u!1 &416930189
 GameObject:
   m_ObjectHideFlags: 0
@@ -484,8 +484,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b572c10eb5b270c4c899e3cd88a3638a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floorPrefab: {fileID: 8572890000184151390, guid: ffa9f8f9ddc2be34bb7ce4f117269d91, type: 3}
+  floorPrefab: {fileID: 4746774445500840661, guid: f4623c986b223cb4586a30e95e8c1402, type: 3}
+  floorPrefabTwo: {fileID: 8572890000184151390, guid: ffa9f8f9ddc2be34bb7ce4f117269d91, type: 3}
   wallPrefab: {fileID: 3017791913332444099, guid: 34624a91569eac549872a9a2b748c640, type: 3}
+  wallPrefabTwo: {fileID: 0}
   columnPrefab: {fileID: 7395780494728883409, guid: 3cfc50a66947e764c9007f3fa0405f4f, type: 3}
   playerPrefab: {fileID: 3050745001121503631, guid: 2fa203dcbcdbe8a408041f642346c390, type: 3}
   curve:

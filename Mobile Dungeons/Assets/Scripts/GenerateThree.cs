@@ -6,22 +6,25 @@ using UnityEngine;
 public class GenerateThree : MonoBehaviour
 {
     public GameObject floorPrefab;
+    public GameObject floorPrefabTwo;
     float floorSize = 5;
 
     public GameObject wallPrefab;
+    public GameObject wallPrefabTwo;
+
     public GameObject columnPrefab;
     public GameObject playerPrefab;
 
     int[,] floorArray;
     Contents[,] contentsArray;
 
-    float columnRegular = 0.4f;
-    float columnDoors = 0.2f;
-    float columnCorner = 0.6f;
+    float columnRegular = 0.35f;
+    float columnDoors = 0.5f;
+    float columnCorner = 0.7f;
 
-    float corner = 0.35f;
-    float wall = 0.2f;
-    float door = 0.25f;
+ //   float corner = 0.35f;
+//    float wall = 0.2f;
+//    float door = 0.25f;
     /*
 
     MeshRenderer[,,] xCutWallRenderersArray;
@@ -227,10 +230,18 @@ public class GenerateThree : MonoBehaviour
         {
             for(int y = 0; y < floorArray.GetLength(1); y++)
             {
-                if(floorArray[x, y] != 0)
+                if(floorArray[x, y] == 1)
                 {
                     Vector3 calculate = new Vector3(x * floorSize, 0, y * floorSize);
                     GameObject newObj = Instantiate(floorPrefab, calculate, Quaternion.identity);
+                    newObj.transform.name = x + ":" + y;
+
+                    contentsArray[x, y] = new Contents();
+                }
+                else if(floorArray[x, y] > 1)
+                {
+                    Vector3 calculate = new Vector3(x * floorSize, 0, y * floorSize);
+                    GameObject newObj = Instantiate(floorPrefabTwo, calculate, Quaternion.identity);
                     newObj.transform.name = x + ":" + y;
 
                     contentsArray[x, y] = new Contents();
@@ -396,25 +407,25 @@ public class GenerateThree : MonoBehaviour
                         //   calculate = new Vector3((x) * floorSize, 0, (y+1) * floorSize);
                         //    newObj = Instantiate(columnPrefab, calculate, Quaternion.identity);
                         //   newObj.transform.name = ((x + 1) + ":" + (y+1));
-                        InstantiateColumn(x+1, y+1, 0, 0);
+                        InstantiateColumn(x+1, y+1, -columnCorner, -columnCorner);
                     }
                     else if (floorArray[x+1, y-1] == 0 && floorArray[x+1,y] == 0 && floorArray[x,y-1] == 0)
                     {
                         //  calculate = new Vector3((x) * floorSize, 0, (y) * floorSize);
                         //    newObj = Instantiate(columnPrefab, calculate, Quaternion.identity);
                         //   newObj.transform.name = ((x + 1) + ":" + (y));
-                        InstantiateColumn(x+1, y, 0, 0);
+                        InstantiateColumn(x+1, y, -columnCorner, columnCorner);
                     }
                     else if (floorArray[x-1, y+1] == 0 && floorArray[x-1,y] == 0 && floorArray[x,y+1] == 0)
                     {
-                        InstantiateColumn(x, y+1, 0, 0);
+                        InstantiateColumn(x, y+1, columnCorner, -columnCorner);
                         //   calculate = new Vector3((x-1) * floorSize, 0, (y+1) * floorSize);
                         //   newObj = Instantiate(columnPrefab, calculate, Quaternion.identity);
                         //   newObj.transform.name = (((x) + ":" + (y + 1)));
                     }
                     else if (floorArray[x-1, y-1] == 0 && floorArray[x-1,y] == 0 && floorArray[x,y-1] == 0)
                     {
-                        InstantiateColumn(x,y,0,0);
+                        InstantiateColumn(x,y,+columnCorner,+columnCorner);
                     //    calculate = new Vector3((x - 1) * floorSize, 0, (y) * floorSize);
                      //   newObj = Instantiate(columnPrefab, calculate, Quaternion.identity);
                      //   newObj.transform.name = (x + ":" + y);
@@ -423,24 +434,24 @@ public class GenerateThree : MonoBehaviour
                     //---------------- regular
                     if (floorArray[x + 1, y] == 0)
                     {
-                        InstantiateColumnTwo(x + 1, y, columnRegular, 0);
+                        InstantiateColumnTwo(x + 1, y, -columnRegular, 0);
                     }
 
-                    /*
+             
                     if (floorArray[x,y-1] == 0)
                     {
-                        InstantiateColumnTwo(x, y, 0, 0);
+                        InstantiateColumnTwo(x, y, 0, columnRegular);
                     }
                     else if (floorArray[x-1,y] == 0)
                     {
-                        InstantiateColumnTwo(x, y, 0, 0);
+                        InstantiateColumnTwo(x, y, columnRegular, 0);
                     }
                     else if (floorArray[x,y+1] == 0)
                     {
-                        InstantiateColumnTwo(x,y+1,0,0); 
+                        InstantiateColumnTwo(x,y+1, 0, -columnRegular); 
                     }
 
-                    */
+             
 
 
                     /*
