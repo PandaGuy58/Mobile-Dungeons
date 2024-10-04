@@ -22,11 +22,11 @@ public class GenerationOne : MonoBehaviour
     public List<GameObject> interactableLocationsPrefabs;
 
 
-    int xSize = 6;
-    int zSize = 6;
+    int xSize =10;
+    int zSize = 10;
 
-    int xCutoutSize = 2;
-    int zCutoutSize = 2;
+    int xCutoutSize = 5;
+    int zCutoutSize = 5;
 
     int prefabSize = 5;
     float columnStandOut = 0.3f;
@@ -53,18 +53,18 @@ public class GenerationOne : MonoBehaviour
 
     private void Awake()
     {
-        xSize = Random.Range(7, 9);
-        zSize = Random.Range(7, 9);
+     //   xSize = Random.Range(7, 9);
+      //  zSize = Random.Range(7, 9);
 
         xCutoutSize = Random.Range(2, 4);
         zCutoutSize = Random.Range(2,4);
 
         Floors();
-        SeeThroughWalls();
+    //    SeeThroughWalls();
         Walls();
-        ContentsOne();
-        ContentsTwo();
-        ContentsThree();
+    //    ContentsOne();
+    //    ContentsTwo();
+     //   ContentsThree();
 
         mainLight.gameObject.SetActive(false);
        // mainLightTwo.gameObject.SetActive(false);
