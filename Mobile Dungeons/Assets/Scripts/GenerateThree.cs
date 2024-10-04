@@ -15,8 +15,8 @@ public class GenerateThree : MonoBehaviour
     int[,] floorArray;
     Contents[,] contentsArray;
 
-    float columnChange = 0.4f;
-    float columnChangeDoors = 0.2f;
+    float columnRegular = 0.4f;
+    float columnDoors = 0.2f;
     float columnCorner = 0.6f;
 
     float corner = 0.35f;
@@ -46,6 +46,7 @@ public class GenerateThree : MonoBehaviour
         GenerateFloor();
         GenerateWalls();
         GenerateColumns();
+     //   DebugColumnsArray();
 
         GameObject playerObject = Instantiate(playerPrefab, new Vector3(1 * floorSize -2.5f, 0, 1 * floorSize +2.5f), Quaternion.identity);
         player = playerObject.GetComponent<Player>();
@@ -205,7 +206,8 @@ public class GenerateThree : MonoBehaviour
     void UpdateContentsColumn(int x, int y, GameObject targetObject)
     {
         Contents targetContents = contentsArray[x, y];
-        targetContents.column = targetObject.GetComponent<MeshRenderer>();
+        targetContents.column = targetObject.transform.GetChild(1).GetComponent<MeshRenderer>();
+
     }
 
     void CheckAndUpdateContentsColumn(int x, int y, GameObject targetObject)
@@ -262,55 +264,6 @@ public class GenerateThree : MonoBehaviour
                         meshRends[0] = newObj.transform.GetChild(1).GetComponent<MeshRenderer>();
                         meshRends[1] = newObj.transform.GetChild(2).GetComponent<MeshRenderer>();
                         contentsArray[x, y].xCutWalls = meshRends;
-
-                        //    if (floorArray[x-1, y] == 0 && (floorArray[x-1, y+1]) == 0 && floorArray[x, y+1] == 0)
-                        //  {
-                        //         calculate = new Vector3((x-1) * floorSize , 0, (y+1) * floorSize + columnChange);
-                        //        Instantiate(columnPrefab, calculate, Quaternion.identity);
-                        //      }
-
-
-                        /*
-
-                        columns!!!!!
-
-                        if (floorArray[x, y + 1] == 0)
-                        {
-                            calculate = new Vector3(x * floorSize - 5 + columnChange, 0, y * floorSize + 5 - columnChange);
-                            newObj = Instantiate(columnPrefab, calculate, Quaternion.identity);
-                            InitialiseContentsArray(x, y + 1);
-                            contentsArray[x, y + 1].column = newObj.transform.GetChild(1).GetComponent<MeshRenderer>();
-
-                            
-                        }
-
-                        if (floorArray[x, y - 1] == 0)
-                        {
-                            calculate = new Vector3(x * floorSize - 5 + columnChange, 0, y * floorSize + columnChange);
-                            newObj = Instantiate(columnPrefab, calculate, Quaternion.identity);
-                            contentsArray[x, y].column = newObj.transform.GetChild(1).GetComponent<MeshRenderer>();
-                        }
-                        else
-                        {
-                            calculate = new Vector3(x * floorSize - 5 + columnChange, 0, y * floorSize);
-                            newObj = Instantiate(columnPrefab, calculate, Quaternion.identity);
-                            contentsArray[x, y].column = newObj.transform.GetChild(1).GetComponent<MeshRenderer>();
-                        }
-
-                        */
-
-
-
-                        //      Instantiate(c)
-
-                        //      Debug.Log(newObj.transform.GetChild(1).GetComponent<MeshRenderer>());
-                        //    Debug.Log(contentsArray[x, y].xCutWalls[0]);
-                        //    contentsArray[x, y].xCutWalls[0] = newObj.transform.GetChild(1).GetComponent<MeshRenderer>();
-                        //     contentsArray[x, y].xCutWalls[1] = newObj.transform.GetChild(2).GetComponent<MeshRenderer>();
-
-                        //   xWallRenderersArray[x,y] = newObj.transform.GetChild(0).GetComponent<MeshRenderer>();
-                        //  xCutWallRenderersArray[x,y,0] = newObj.transform.GetChild(1).GetComponent<MeshRenderer>();
-                        //    xCutWallRenderersArray[x, y, 1] = newObj.transform.GetChild(2).GetComponent<MeshRenderer>();
                     }
 
                     if (floorArray[x, y - 1] == 0)
@@ -329,94 +282,7 @@ public class GenerateThree : MonoBehaviour
 
                         // column
                         //corner
-                        if (floorArray[x - 1, y] == 0)
-                        {
-                            calculate = new Vector3((x - 1) * floorSize + columnCorner, 0, y * floorSize + columnCorner);
-                            //  newObj = Instantiate(columnPrefab, calculate, Quaternion.identity);
-                            //    newObj.transform.name = x + ":" + y + " COLUMN";
-                            // newObj.transform.eulerAngles = new Vector3(0,90,0);
-                        }
 
-                        if (floorArray[x + 1, y] == 0)
-                        {
-                            calculate = new Vector3(x * floorSize - columnChange, 0, y * floorSize + columnCorner);
-                            //    newObj = Instantiate(columnPrefab, calculate, Quaternion.identity);
-                            //      newObj.transform.name = (x + 1) + ":" + y + " COLUMN";
-                            //  newObj.transform.eulerAngles = new Vector3(0, 90, 0);
-                        }
-
-                        //    else if (floorArray[x - 1, y - 1] == 0)
-                        //  {
-                        //      calculate = new Vector3((x - 1) * floorSize, 0, y * floorSize + columnCorner);
-                        //        //     Instantiate(columnPrefab, calculate, Quaternion.identity);
-                        //    }
-
-                        //   if (floorArray[x + 1, y] == 0)
-                        //    {
-                        //       calculate = new Vector3(x * floorSize - columnChange, 0, y * floorSize + columnCorner);
-                        //      Instantiate(columnPrefab, calculate, Quaternion.identity);
-                        //   }
-
-
-                        // column
-
-                        //    if (floorArray[x - 1, y - 1] == 0)
-                        //   {
-                        //      calculate = new Vector3(x * floorSize - columnChange, 0, y * floorSize + columnChange);
-                        //        Instantiate(columnPrefab, calculate, Quaternion.identity);
-                        //   }
-
-                        /*
-                        if (floorArray[x +1, y] == 0)
-                        {
-                            InitialiseContentsArray(x + 1, y);
-                            calculate = new Vector3(x * floorSize - columnChange, 0, y * floorSize + columnChange);
-                            Instantiate(columnPrefab, calculate, Quaternion.identity); 
-                      //      calculate = new Vector3((x+1) * floorSize, 0, y * floorSize);
-
-                        }
-
-
-
-                        else if (floorArray[x -1, y] == 0)
-                        {
-                            calculate = new Vector3((x-1) * floorSize + columnChange, 0, y * floorSize + columnChange);
-                            Instantiate(columnPrefab, calculate, Quaternion.identity);
-                        }
-                        else
-                        {
-                            calculate = new Vector3((x - 1) * floorSize, 0, y * floorSize + columnChange);
-                            Instantiate(columnPrefab, calculate, Quaternion.identity);
-                        }
-                        */
-
-
-                        //      newObj = Instantiate(columnPrefab, calculate, Quaternion.identity);
-                        //     contentsArray[x, y].column = newObj.transform.GetChild(1).GetComponent<MeshRenderer>();
-
-                        //       calculate = new Vector3(x * floorSize - 5 + columnChange, 0, y * floorSize + 5 - columnChange);
-                        //     newObj = Instantiate(columnPrefab, calculate, Quaternion.identity);
-
-                        /*
-
-                        if(floorArray[x +1, y] == 0)
-                        {
-                            calculate = new Vector3(x * floorSize - 5 + columnChange, 0, y * floorSize + 5 - columnChange);
-                            newObj = Instantiate(columnPrefab, calculate, Quaternion.identity);
-                        }
-                        else
-                        {
-                            calculate = new Vector3(x * floorSize - 5 + columnChange, 0, y * floorSize + 5 - columnChange);
-                            newObj = Instantiate(columnPrefab, calculate, Quaternion.identity);
-                        }
-                        */
-
-                        //   contentsArray[x,y].yCutWalls[0] = newObj.transform.GetChild(1).GetComponent<MeshRenderer>();
-                        //  contentsArray[x, y].yCutWalls[1] = newObj.transform.GetChild(2).GetComponent<MeshRenderer>();
-
-                        //    yWallRendersArray[x,y] = newObj.transform.GetChild(0).GetComponent<MeshRenderer>();
-                        //    yCutWallRenderersArray[x,y,0] = newObj.transform.GetChild(1).GetComponent<MeshRenderer>();
-                        //   yCutWallRenderersArray[x, y, 1] = newObj.transform.GetChild(2).GetComponent<MeshRenderer>();
                     }
 
                     if (floorArray[x + 1, y] == 0)
@@ -435,13 +301,6 @@ public class GenerateThree : MonoBehaviour
                         meshRends[1] = newObj.transform.GetChild(2).GetComponent<MeshRenderer>();
                         contentsArray[x + 1, y].xCutWalls = meshRends;
 
-
-                        //     contentsArray[x + 1, y].xCutWalls[0] = newObj.transform.GetChild(1).GetComponent<MeshRenderer>();
-                        //    contentsArray[x + 1, y].xCutWalls[1] = newObj.transform.GetChild(2).GetComponent<MeshRenderer>();
-
-                        //  xWallRenderersArray[x+1, y] = newObj.transform.GetChild(0).GetComponent<MeshRenderer>();
-                        //    xCutWallRenderersArray[x+1, y, 0] = newObj.transform.GetChild(1).GetComponent<MeshRenderer>();
-                        //   xCutWallRenderersArray[x+1, y, 1] = newObj.transform.GetChild(2).GetComponent<MeshRenderer>();
                     }
 
                     if (floorArray[x, y + 1] == 0)
@@ -459,77 +318,11 @@ public class GenerateThree : MonoBehaviour
                         meshRends[0] = newObj.transform.GetChild(1).GetComponent<MeshRenderer>();
                         meshRends[1] = newObj.transform.GetChild(2).GetComponent<MeshRenderer>();
                         contentsArray[x, y + 1].xCutWalls = meshRends;
-
-                        if (floorArray[x - 1, y] == 0)
-                        {
-                            calculate = new Vector3((x - 1) * floorSize + columnCorner, 0, (y + 1) * floorSize - columnCorner);
-                            //     newObj = Instantiate(columnPrefab, calculate, Quaternion.identity);
-                            //    newObj.transform.name = x + ":" + (y + 1) + " COLUMN";
-
-                            //   newObj.transform.eulerAngles = new Vector3(0, 90, 0);
-                        }
-
-                        if (floorArray[x + 1, y] == 0)
-                        {
-                            calculate = new Vector3(x * floorSize - columnCorner, 0, (y + 1) * floorSize - columnCorner);
-                            //      newObj = Instantiate(columnPrefab, calculate, Quaternion.identity);
-                            //     newObj.transform.name = (x + 1) + ":" + (y + 1) + " COLUMN";
-                            //     newObj.transform.eulerAngles = new Vector3(0, 90, 0);
-                        }
-
-
-                        //     contentsArray[x, y + 1].xCutWalls[0] = newObj.transform.GetChild(1).GetComponent<MeshRenderer>();
-                        //    contentsArray[x, y + 1].xCutWalls[1] = newObj.transform.GetChild(2).GetComponent<MeshRenderer>();
-
-                        //   xWallRenderersArray[x, y+1] = newObj.transform.GetChild(0).GetComponent<MeshRenderer>();
-                        //    xCutWallRenderersArray[x, y+1, 0] = newObj.transform.GetChild(1).GetComponent<MeshRenderer>();
-                        //    xCutWallRenderersArray[x, y+1, 1] = newObj.transform.GetChild(2).GetComponent<MeshRenderer>();
-                    }
-
-                    if (floorArray[x - 1, y + 1] == 0)
-                    {
-                        if (floorArray[x - 1, y] != 0 && floorArray[x, y + 1] != 0)
-                        {
-                            calculate = new Vector3((x - 1) * floorSize, 0, (y + 1) * floorSize);
-                            //      newObj = Instantiate(columnPrefab, calculate, Quaternion.identity);
-                            //     newObj.transform.name = x + ":" + (y + 1) + " COLUMN NEW";
-                        }
-                    }
-
-                    if (floorArray[x + 1, y + 1] == 0)
-                    {
-                        if (floorArray[x, y + 1] != 0 && floorArray[x + 1, y] != 0)
-                        {
-                            calculate = new Vector3((x) * floorSize, 0, (y + 1) * floorSize);
-                            //       newObj = Instantiate(columnPrefab, calculate, Quaternion.identity);
-                            //       newObj.transform.name = (x + 1) + ":" + (y + 1) + "COLUMN NEW";
-                        }
-                    }
-
-                    if (floorArray[x + 1, y - 1] == 0)
-                    {
-                        if (floorArray[x, y - 1] != 0 && floorArray[x + 1, y] != 0)
-                        {
-                            calculate = new Vector3(x * floorSize, 0, y * floorSize);
-                            //      newObj = Instantiate(columnPrefab, calculate, Quaternion.identity);
-                            //     newObj.transform.name = (x + 1) + ":" + y + "COLUMN NEW";
-                        }
-                    }
-
-                    if (floorArray[x - 1, y - 1] == 0)
-                    {
-                        if (floorArray[x - 1, y] != 0 && floorArray[x, y - 1] != 0)
-                        {
-                            calculate = new Vector3((x - 1) * floorSize, 0, y * floorSize);
-                            //    newObj = Instantiate(columnPrefab, calculate, Quaternion.identity);
-                            //     newObj.transform.name = x + ":" + y + " COLUMN NEW";
-                        }
                     }
                 }
             }
         }
     }
-
 
     void GenerateColumns()
     {
@@ -541,93 +334,115 @@ public class GenerateThree : MonoBehaviour
             {
                 if (floorArray[x, y] > 1)
                 {
-                 //   InitialiseContentsArray(x, y);
+                    //   InitialiseContentsArray(x, y);
 
                     // entrance to tunnel columns
 
-                    if (floorArray[x-1,y] == 1)
+
+                    if (floorArray[x - 1, y] == 1)
                     {
+                        InstantiateColumn(x, y + 1, 0, 0);
+                        InstantiateColumn(x, y, 0, 0);
+                    }
+                    else if (floorArray[x + 1, y] == 1)
+                    {
+                        InstantiateColumn(x+1,y,0, 0);
+                        InstantiateColumn(x+1, y+1, 0, 0);
+                    }
+                    else if (floorArray[x, y + 1] == 1)
+                    {
+                        InstantiateColumn(x, y + 1, 0, 0);
+                        InstantiateColumn(x + 1, y + 1, 0, 0);
+                        /*
                         calculate = new Vector3((x - 1) * floorSize, 0, (y + 1) * floorSize);
-                        newObj = Instantiate(columnPrefab, calculate, Quaternion.identity);
-                        newObj.transform.name = (x + ":" + (y + 1));
-                        CheckAndInitialiseContentsArray(x,y+1);
-                        UpdateContentsColumn(x,y+1,newObj);
-
-
-                        calculate = new Vector3((x - 1) * floorSize, 0, (y) * floorSize);
-                        newObj = Instantiate(columnPrefab, calculate, Quaternion.identity);
-                        newObj.transform.name = (x + ":" + (y));
-                        CheckAndInitialiseContentsArray(x,y);
-                        UpdateContentsColumn(x, y, newObj);
-                    }
-                    else if (floorArray[x+1,y] == 1)
-                    {
-                        calculate = new Vector3((x) * floorSize, 0, (y) * floorSize);
-                        newObj = Instantiate(columnPrefab, calculate, Quaternion.identity);
-                        newObj.transform.name = ((x+1) + ":" + (y));
-                        CheckAndInitialiseContentsArray(x + 1, y);
-                        UpdateContentsColumn(x+1, y, newObj);
-
-                        calculate = new Vector3((x) * floorSize, 0, (y + 1) * floorSize);
-                        newObj = Instantiate(columnPrefab, calculate, Quaternion.identity);
-                        newObj.transform.name = ((x + 1) + ":" + (y+1));
-                        CheckAndInitialiseContentsArray(x + 1, y + 1);
-                        UpdateContentsColumn(x+1, y+1, newObj);
-                    }
-                    else if (floorArray[x,y+1] == 1)
-                    {
-                        calculate = new Vector3((x-1) * floorSize, 0, (y+1) * floorSize);
                         newObj = Instantiate(columnPrefab, calculate, Quaternion.identity);
                         newObj.transform.name = ((x) + ":" + (y + 1));
                         CheckAndInitialiseContentsArray(x, y + 1);
-                        UpdateContentsColumn(x, y+1, newObj);
+                        UpdateContentsColumn(x, y + 1, newObj);
 
-                        calculate = new Vector3((x) * floorSize, 0, (y+1) * floorSize);
+                        calculate = new Vector3((x) * floorSize, 0, (y + 1) * floorSize);
                         newObj = Instantiate(columnPrefab, calculate, Quaternion.identity);
-                        newObj.transform.name = ((x+1) + ":" + (y + 1));
-                        CheckAndInitialiseContentsArray(x+1, y+1);
-                        UpdateContentsColumn(x+1, y+1, newObj);
+                        newObj.transform.name = ((x + 1) + ":" + (y + 1));
+                        CheckAndInitialiseContentsArray(x + 1, y + 1);
+                        UpdateContentsColumn(x + 1, y + 1, newObj);
+                        */
                     }
-                    else if (floorArray[x,y-1] == 1)
+                    else if (floorArray[x, y - 1] == 1)
                     {
+                        InstantiateColumn(x,y,0,0);
+                        InstantiateColumn(x+1,y,0,0);
+                        /*
+
                         calculate = new Vector3((x - 1) * floorSize, 0, (y) * floorSize);
                         newObj = Instantiate(columnPrefab, calculate, Quaternion.identity);
                         newObj.transform.name = ((x) + ":" + (y));
                         CheckAndInitialiseContentsArray(x, y);
-                        UpdateContentsColumn(x,y, newObj);
+                        UpdateContentsColumn(x, y, newObj);
 
-                        calculate = new Vector3((x) * floorSize, 0, (y) * floorSize);
-                        newObj = Instantiate(columnPrefab, calculate, Quaternion.identity);
-                        newObj.transform.name = ((x+1) + ":" + (y));
-                    }
-
-
-                    // room corners
-
-                    if (floorArray[x+1,y+1] == 0 && floorArray[x+1,y] == 0 && floorArray[x,y+1] == 0)
-                    {
-                        calculate = new Vector3((x) * floorSize, 0, (y+1) * floorSize);
-                        newObj = Instantiate(columnPrefab, calculate, Quaternion.identity);
-                        newObj.transform.name = ((x + 1) + ":" + (y+1));
-                    }
-                    else if (floorArray[x+1, y-1] == 0 && floorArray[x+1,y] == 0 && floorArray[x,y-1] == 0)
-                    {
                         calculate = new Vector3((x) * floorSize, 0, (y) * floorSize);
                         newObj = Instantiate(columnPrefab, calculate, Quaternion.identity);
                         newObj.transform.name = ((x + 1) + ":" + (y));
+                        */
+
+                    }
+
+
+
+
+                    // room corners
+                    
+                    if (floorArray[x+1,y+1] == 0 && floorArray[x+1,y] == 0 && floorArray[x,y+1] == 0)
+                    {
+                        //   calculate = new Vector3((x) * floorSize, 0, (y+1) * floorSize);
+                        //    newObj = Instantiate(columnPrefab, calculate, Quaternion.identity);
+                        //   newObj.transform.name = ((x + 1) + ":" + (y+1));
+                        InstantiateColumn(x+1, y+1, 0, 0);
+                    }
+                    else if (floorArray[x+1, y-1] == 0 && floorArray[x+1,y] == 0 && floorArray[x,y-1] == 0)
+                    {
+                        //  calculate = new Vector3((x) * floorSize, 0, (y) * floorSize);
+                        //    newObj = Instantiate(columnPrefab, calculate, Quaternion.identity);
+                        //   newObj.transform.name = ((x + 1) + ":" + (y));
+                        InstantiateColumn(x+1, y, 0, 0);
                     }
                     else if (floorArray[x-1, y+1] == 0 && floorArray[x-1,y] == 0 && floorArray[x,y+1] == 0)
                     {
-                        calculate = new Vector3((x-1) * floorSize, 0, (y+1) * floorSize);
-                        newObj = Instantiate(columnPrefab, calculate, Quaternion.identity);
-                        newObj.transform.name = (((x) + ":" + (y + 1)));
+                        InstantiateColumn(x, y+1, 0, 0);
+                        //   calculate = new Vector3((x-1) * floorSize, 0, (y+1) * floorSize);
+                        //   newObj = Instantiate(columnPrefab, calculate, Quaternion.identity);
+                        //   newObj.transform.name = (((x) + ":" + (y + 1)));
                     }
                     else if (floorArray[x-1, y-1] == 0 && floorArray[x-1,y] == 0 && floorArray[x,y-1] == 0)
                     {
-                        calculate = new Vector3((x - 1) * floorSize, 0, (y) * floorSize);
-                        newObj = Instantiate(columnPrefab, calculate, Quaternion.identity);
-                        newObj.transform.name = (x + ":" + y);
+                        InstantiateColumn(x,y,0,0);
+                    //    calculate = new Vector3((x - 1) * floorSize, 0, (y) * floorSize);
+                     //   newObj = Instantiate(columnPrefab, calculate, Quaternion.identity);
+                     //   newObj.transform.name = (x + ":" + y);
                     }
+
+                    //---------------- regular
+                    if (floorArray[x + 1, y] == 0)
+                    {
+                        InstantiateColumnTwo(x + 1, y, columnRegular, 0);
+                    }
+
+                    /*
+                    if (floorArray[x,y-1] == 0)
+                    {
+                        InstantiateColumnTwo(x, y, 0, 0);
+                    }
+                    else if (floorArray[x-1,y] == 0)
+                    {
+                        InstantiateColumnTwo(x, y, 0, 0);
+                    }
+                    else if (floorArray[x,y+1] == 0)
+                    {
+                        InstantiateColumnTwo(x,y+1,0,0); 
+                    }
+
+                    */
+
+
                     /*
                     if(!southWest && west && south)  // corner
                     {
@@ -761,13 +576,39 @@ public class GenerateThree : MonoBehaviour
         }
     }
 
-    void InstantiateColumn(int x, int y, float xDifference, float zDifference)
+    void InstantiateColumn(int x, int y, float xDifference, float yDifference)
     {
-        Vector3 calculate = new Vector3(x * floorSize + xDifference, 0, y * floorSize + zDifference);
+        Vector3 calculate = new Vector3((x-1) * floorSize + xDifference, 0, y * floorSize + yDifference);
         GameObject newObj = Instantiate(columnPrefab, calculate, Quaternion.identity);
         newObj.transform.name = (x + ":" + y + " COLUMN");
         CheckAndInitialiseContentsArray(x,y);
         UpdateContentsColumn(x,y,newObj);
+    }
+
+    void InstantiateColumnTwo(int x, int y, float xDifference, float yDifference)
+    {
+        Contents targetContents = contentsArray[x,y];
+        if(targetContents == null)
+        {
+            Debug.Log(Time.time);
+            contentsArray[x, y] = new Contents();
+            Vector3 calculate = new Vector3((x - 1) * floorSize + xDifference, 0, y * floorSize + yDifference);
+            GameObject newObj = Instantiate(columnPrefab, calculate, Quaternion.identity);
+            newObj.transform.name = (x + ":" + y + " COLUMN");
+            UpdateContentsColumn(x, y, newObj);
+        }
+        else
+        {
+            MeshRenderer meshRenderer = contentsArray[x, y].column;
+            Debug.Log(meshRenderer);
+            if(meshRenderer == null)
+            {
+                Vector3 calculate = new Vector3((x - 1) * floorSize + xDifference, 0, y * floorSize + yDifference);
+                GameObject newObj = Instantiate(columnPrefab, calculate, Quaternion.identity);
+                newObj.transform.name = (x + ":" + y + " COLUMN");
+                UpdateContentsColumn(x, y, newObj);
+            }
+        }
     }
 
     void DebugArray(int[,] floorArray)
@@ -824,6 +665,48 @@ public class GenerateThree : MonoBehaviour
 
         Debug.Log(finalText);
 
+    }
+
+    void DebugColumnsArray()
+    {
+        string finalText = "";
+        string tempText;
+        for (int y = contentsArray.GetLength(1) - 1; y > -1; y--)
+        {
+            tempText = "";
+            for (int x = 0; x < contentsArray.GetLength(0); x++)
+            {
+                Contents targetContents = contentsArray[x, y];
+                if(targetContents == null)
+                {
+                    tempText += 0;
+                }
+                else
+                {
+                    if(targetContents.column != null)
+                    {
+                        tempText += 2;
+                    }
+                    else
+                    {
+                        tempText += 1;
+                    }
+                }
+             //   tempText += floorArray[x, y].ToString();
+            }
+            finalText += tempText;
+            finalText += "\n";
+        }
+
+        //   tempText = "x: ";
+        //   for (int x = 0; x < floorArray.GetLength(0); x++)
+        //  {
+        //     tempText += x + " ";
+        //  }
+
+        // finalText += tempText;
+
+        Debug.Log(finalText);
     }
 }
 
